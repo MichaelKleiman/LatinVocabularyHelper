@@ -25,6 +25,8 @@ def getWord (f):
             t = t[0]
             if " " in t:
                 t = t.split(" ")
+                if ',' in t[0]:
+                    t[0] = t[0].split(',')[0]                    
                 for i in range(len(t)):
                     st += t[i]
                     st += "&"
@@ -47,12 +49,12 @@ def getWord (f):
         if (t == ""):
             return ""
         
-ws = ['0'] * 1000 #words
-vs = ['0'] * 1000 #values
+ws = ['0'] * 997 #words
+vs = ['0'] * 997 #values
 
 saves = open(sav, "r")
 
-for i in range(0, 1000):
+for i in range(0, 997):
     vs[i] = saves.readline()
 
 saves.close()    
@@ -73,12 +75,11 @@ while True:
 
 file.close()
 
-
 #rewrites save.txt with the data in vs
 def save():
     saves = open(sav, "w")
     global vs
-    for i in range (0, 1000):
+    for i in range (0, 997):
         if (vs[i] == 0 or vs[i] == 1):
             saves.write(str(vs[i]))
         else:
