@@ -1,4 +1,4 @@
-Run this with Python from Python.org. WordThing.py has to be in the same location as save.txt and list.txt
+Run this with Python 3 from Python.org. WordThing.py has to be in the same location as save.txt and list.txt
 
 The wordlist comes from Francese, Christopher. Latin Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/latin-vocabulary-list
 
