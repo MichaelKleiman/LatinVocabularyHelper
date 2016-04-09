@@ -1,6 +1,9 @@
 '''
 
 @author: Michael Kleiman
+I've had no formal Python, so the style might not be 'correct'
+
+
 '''
 
 
