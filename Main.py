@@ -17,8 +17,8 @@ sav = os.path.join(os.path.dirname(__file__), 'save.txt')
 current = '' #the current word
 currentint = -1 #the location of the current word
 
-#loads a word
-def getWord (f):
+#loads a word from the source text file
+def loadWord (f):
     t = f.readline()
     st = ""
     while True:
@@ -69,7 +69,7 @@ i = 0
 
 file = open(loc, "r")
 while True:
-    s = getWord(file)
+    s = loadWord(file)
     if (s != ""):
         ws[i] = s
         i = i + 1
@@ -90,20 +90,20 @@ def save():
         
         saves.write('\n')
         
-    messagebox.delete(1.0, END)
+    messagebox.config(text = "")
     saves.close()
-    messagebox.insert(INSERT, "saved")
+    messagebox.config(text = "saved")
       
 #brings up the quit box        
 def q():
-    messagebox.delete(1.0, END)
+    messagebox.config(text = "")
     t = Toplevel(width = 10)
-    title = Text(t, height = 1, width = 29, font = "Times")
-    yes = Button(t, text = "yes", command = leave)
-    no = Button(t, text = "no", command = sys.exit)
+    title = Label(t, height = 1, width = 29, font = "Times")
+    yes = Button(t, text = "yes", command = leave, width = 3)
+    no = Button(t, text = "no", command = sys.exit, width = 3)
     
     title.pack()
-    title.insert(INSERT, "Do you want to save before quitting?")
+    title.config(text = "Do you want to save before exiting?    ")
     yes.pack()
     no.pack()
 
@@ -114,45 +114,55 @@ def leave():
     
 #gets a random new word from ws, whose index is a 0 in vs
 def newword():
-    x = randint(0, 999)
+    global currentint
+    while True:
+        x = randint(0, 997)
+        if x != currentint:
+            break
+    
+    while vs[x] == 1:
+        x = randint(0, 997)
+        
     global current
     current = ws[x].split("$")
-    while vs[x] == 1:
-        x = randint(0, 999)
-    global currentint
     currentint = x
     clear()
-    latinbox.insert(INSERT, current[0].split("&")[0])
+    latinbox.config(text = current[0].split("&")[0])
     
 #displays the English of the current word
 def english():
     if current is not '':
-        englishbox.delete(1.0, END)
+        englishbox.config(text = "")
     if len(current) > 1:   
+        s = ""
         c = current[1].split("&")
         for i in range(len(c) - 1):
             if (i > 0): 
-                englishbox.insert(INSERT, ',')   
-            englishbox.insert(INSERT,c[i])
-    messagebox.delete(1.0, END)        
+                s = s + ","   
+            s = s + c[i]
+        
+        englishbox.config(text = s)        
+    messagebox.config(text = "")      
             
 #shows the parts, if any, of the current word          
 def parts():
     if current is not '':
-        partsbox.delete(1.0, END)
+        partsbox.config(text = "")
     if len(current) > 1:   
         c = current[0].split("&")
         no = True
+        s = ""
         for i in range(1, len(c) - 1):
             if (i > 1):
-                partsbox.insert(INSERT, ', ')   
-            partsbox.insert(INSERT,c[i])
-            
+                s = s + ","   
+            s = s + c[i]
             no = False
         if no:    
-            partsbox.insert(INSERT, '-none')
+            partsbox.config(text = '-none')
+        else:
+            partsbox.config(text = s)    
             
-    messagebox.delete(1.0, END)
+    messagebox.config(text = "")
        
 #puts a 1 in vs so the current word won't be shown again 
 def doneword():
@@ -160,32 +170,31 @@ def doneword():
     global vs
     if currentint != -1:
         vs[currentint] = 1
-        messagebox.insert(INSERT, "Done")
+        messagebox.config(text = "Done")
 
 #removes all text from the boxes
 def clear():
-    latinbox.delete(1.0, END)
-    englishbox.delete(1.0, END)
-    partsbox.delete(1.0, END)
-    messagebox.delete(1.0, END)
+    latinbox.config(text = "")
+    englishbox.config(text = "")
+    partsbox.config(text = "")
+    messagebox.config(text = "")
 
 
 
 
 top = Tk()
-saveb = Button(top, text ="save (s)", command = save)
+saveb = Button(top, text ="save (s)", command = save,)
 qb = Button(top, text = "quit (q)", command = q)
 newwordb = Button(top, text = "new word (w)", command = newword)    
 englishb = Button(top, text = "english (e)", command = english)
 partsb = Button(top, text = "parts (p)", command = parts)
 donewithwordb = Button(top, text = "Don't show this word (d)", command = doneword)
-latinbox = Text(top, height = 1, width = 25, font = "Times")
-englishbox = Text(top, height = 1, width = 25, font = "Times")
-partsbox = Text(top, height = 1, width = 25, font = "Times")
-messagebox = Text(top, height = 2, width = 25, font = "Times")
+latinbox = Label(top, height = 1, width = 30, font = ("Times", '12'), bg = 'white')
+englishbox = Label(top, height = 3, width = 30, font = ("Times", '12'), bg = 'white', wraplength = 250)
+partsbox = Label(top, height = 1, width = 30, font = ("Times", '12'), bg = 'white')
+messagebox = Label(top, height = 2, width = 30, font = ("Times", '12'))
 
 
- 
 latinbox.pack() 
 newwordb.pack()
 partsbox.pack()
@@ -212,7 +221,7 @@ def key(event):
         parts()
     elif c == 'd':
         doneword()
-frame = Frame(top, width=100, height=0)
+frame = Frame(top, width=100, height=0,)
 frame.bind("<Key>", key)
 frame.pack()
 frame.focus_set()
