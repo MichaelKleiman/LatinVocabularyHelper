@@ -59,7 +59,6 @@ saves = open(sav, "r")
 
 for i in range(0, 997):
     vs[i] = saves.readline()
-
 saves.close()    
 
 
@@ -83,12 +82,8 @@ def save():
     saves = open(sav, "w")
     global vs
     for i in range (0, 997):
-        if (vs[i] == 0 or vs[i] == 1):
-            saves.write(str(vs[i]))
-        else:
-            saves.write(str(0))
-        
-        saves.write('\n')
+        saves.write(vs[i])
+        #saves.write('\n')
         
     messagebox.config(text = "")
     saves.close()
@@ -169,7 +164,7 @@ def doneword():
     global currentint
     global vs
     if currentint != -1:
-        vs[currentint] = 1
+        vs[currentint] = '1'
         messagebox.config(text = "Done")
 
 #removes all text from the boxes
