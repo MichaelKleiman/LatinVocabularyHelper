@@ -7,4 +7,4 @@ Run this with Python 3 from Python.org. Main.py has to be in the same location a
 The wordlist comes from Francese, Christopher. Latin Core Vocabulary. Dickinson College Commentaries (2014). http://dcc.dickinson.edu/latin-vocabulary-list
 
 This project is licenced under creative commons Attribution-ShareAlike 4.0 International - http://creativecommons.org/licenses/by-sa/4.0/ -
-except WordThing.py, which is under Attribution-NonCommercial-ShareAlike 4.0 International http://creativecommons.org/licenses/by-nc-sa/4.0/
+except Main.py, which is under Attribution-NonCommercial-ShareAlike 4.0 International http://creativecommons.org/licenses/by-nc-sa/4.0/
