@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 '''
 
 @author: Michael Kleiman
@@ -55,7 +57,7 @@ def loadWord (f):
 ws = ['0'] * 997 #words
 vs = ['0'] * 997 #values
 
-saves = open(sav, "r")
+saves = open(sav, 'r', encoding='ISO-8859-1')
 
 for i in range(0, 997):
     vs[i] = saves.readline()
@@ -66,7 +68,7 @@ s = " "
 i = 0
 
 
-file = open(loc, "r")
+file = open(loc, 'r', encoding='ISO-8859-1')
 while True:
     s = loadWord(file)
     if (s != ""):
@@ -83,7 +85,6 @@ def save():
     global vs
     for i in range (0, 997):
         saves.write(vs[i])
-        #saves.write('\n')
         
     messagebox.config(text = "")
     saves.close()
@@ -98,7 +99,7 @@ def q():
     no = Button(t, text = "no", command = sys.exit, width = 3)
     
     title.pack()
-    title.config(text = "Do you want to save before exiting?    ")
+    title.config(text = "     Do you want to save before exiting?    ")
     yes.pack()
     no.pack()
 
@@ -110,12 +111,8 @@ def leave():
 #gets a random new word from ws, whose index is a 0 in vs
 def newword():
     global currentint
-    while True:
-        x = randint(0, 997)
-        if x != currentint:
-            break
-    
-    while vs[x] == 1:
+    x = currentint
+    while x == currentint or vs[x] == 1:
         x = randint(0, 997)
         
     global current
