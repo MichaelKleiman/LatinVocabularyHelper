@@ -58,9 +58,10 @@ ws = ['0'] * 997 #words
 vs = ['0'] * 997 #values
 
 saves = open(sav, 'r', encoding='ISO-8859-1')
+saved = True
 
 for i in range(0, 997):
-    vs[i] = saves.readline()
+    vs[i] = int(saves.readline())
 saves.close()    
 
 
@@ -79,27 +80,36 @@ while True:
 
 file.close()
 
-#rewrites save.txt with the data in vs
+#rewrites save.txt with the data in vs. 
 def save():
     saves = open(sav, "w")
     global vs
-    for i in range (0, 997):
-        saves.write(vs[i])
+    for i in range (0, len(vs)):
+        if vs[i] == 1:
+            saves.write('1\n')
+        else:
+            saves.write('0\n')
         
     messagebox.config(text = "")
     saves.close()
+    global saved
+    saved = True
     messagebox.config(text = "saved")
-      
+    
+
 #brings up the quit box        
 def q():
+    global saved
+    if saved:
+        sys.exit()
     messagebox.config(text = "")
     t = Toplevel(width = 10)
-    title = Label(t, height = 1, width = 29, font = "Times")
+    s = "Do you want to write changes before exiting?"
+    title = Label(t, height = 1, width = len(s) - 5, font = "Times")
     yes = Button(t, text = "yes", command = leave, width = 3)
     no = Button(t, text = "no", command = sys.exit, width = 3)
-    
     title.pack()
-    title.config(text = "     Do you want to save before exiting?    ")
+    title.config(text = s)
     yes.pack()
     no.pack()
 
@@ -112,9 +122,11 @@ def leave():
 def newword():
     global currentint
     x = currentint
-    while x == currentint or vs[x] == 1:
-        x = randint(0, 997)
-        
+    try:
+        while x == currentint or vs[x] == 1:
+            x = randint(0, 996)
+    except:
+        print(x)
     global current
     current = ws[x].split("$")
     currentint = x
@@ -161,9 +173,10 @@ def doneword():
     global currentint
     global vs
     if currentint != -1:
-        vs[currentint] = '1'
+        vs[currentint] = 1
         messagebox.config(text = "Done")
-
+    global saved
+    saved = False
 #removes all text from the boxes
 def clear():
     latinbox.config(text = "")
