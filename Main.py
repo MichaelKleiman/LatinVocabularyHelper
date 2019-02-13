@@ -34,8 +34,12 @@ def loadWord (f):
                     t[0] = t[0].split(',')[0]                    
                 for i in range(len(t)):
                     st += t[i]
-                    st += "&"
+                    if len(t) > i+1 and t[i+1] == "sum":
+                        st += " "
+                    else:
+                        st += "&"
                     i = i + 1
+                print(st)
             else: 
                 st += t
                 st += "&"
