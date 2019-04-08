@@ -35,6 +35,7 @@ def loadWord (f):
                 for i in range(len(t)):
                     st += t[i]
                     #this condition is for deponent verbs
+
                     if len(t) > i+1 and t[i+1] == "sum":
                         st += " "
                     else:
@@ -162,7 +163,7 @@ def parts():
         s = ""
         for i in range(1, len(c) - 1):
             if (i > 1):
-                s = s + ","   
+                s = s + ", "   
             s = s + c[i]
             no = False
         if no:    
@@ -192,17 +193,17 @@ def clear():
 
 
 top = Tk()
-saveb = Button(top, text ="save (s)", command = save,)
-qb = Button(top, text = "quit (q)", command = q)
-newwordb = Button(top, text = "new word (w)", command = newword)    
-englishb = Button(top, text = "english (e)", command = english)
-partsb = Button(top, text = "parts (p)", command = parts)
-donewithwordb = Button(top, text = "Don't show this word (d)", command = doneword)
-latinbox = Label(top, height = 1, width = 30, font = ("Times", '12'), bg = 'white')
-englishbox = Label(top, height = 3, width = 30, font = ("Times", '12'), bg = 'white', wraplength = 250)
-partsbox = Label(top, height = 1, width = 30, font = ("Times", '12'), bg = 'white')
-messagebox = Label(top, height = 2, width = 30, font = ("Times", '12'))
-
+frame = Frame(top, width=100, height=0, bd = 5)
+saveb = Button(frame, text ="save (s)", command = save,)
+qb = Button(frame, text = "quit (q)", command = q)
+newwordb = Button(frame, text = "new word (w)", command = newword)    
+englishb = Button(frame, text = "english (e)", command = english)
+partsb = Button(frame, text = "parts (p)", command = parts)
+donewithwordb = Button(frame, text = "Don't show this word (d)", command = doneword)
+latinbox = Label(frame, height = 1, width = 35, font = ("Times", '12'), bg = 'white')
+englishbox = Label(frame, height = 4, width = 35, font = ("Times", '12'), bg = 'white', wraplength = 250)
+partsbox = Label(frame, height = 1, width = 35, font = ("Times", '12'), bg = 'white')
+messagebox = Label(frame, height = 2, width = 35, font = ("Times", '12'))
 
 latinbox.pack() 
 newwordb.pack()
@@ -230,7 +231,7 @@ def key(event):
         parts()
     elif c == 'd':
         doneword()
-frame = Frame(top, width=100, height=0,)
+
 frame.bind("<Key>", key)
 frame.pack()
 frame.focus_set()
